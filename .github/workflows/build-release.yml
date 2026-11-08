@@ -81,7 +81,7 @@ jobs:
           rustup toolchain install "$RUST_VERSION" --profile minimal
           rustup default "$RUST_VERSION"
           rustup target add aarch64-linux-android x86_64-linux-android
-          sdkmanager "ndk;28.2.13676358"
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "ndk;28.2.13676358"
       - run: flutter pub get --enforce-lockfile
       - name: Check and test
         run: |
