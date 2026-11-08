@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Fortress - Vault Management</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-lowest": "#010f1f",
+                      "surface-dim": "#051424",
+                      "surface": "#051424",
+                      "on-error": "#690005",
+                      "on-tertiary-fixed-variant": "#005236",
+                      "surface-container-low": "#0d1c2d",
+                      "primary-fixed-dim": "#bec6e0",
+                      "primary-fixed": "#dae2fd",
+                      "on-secondary-container": "#b0b2ff",
+                      "secondary-container": "#3131c0",
+                      "tertiary": "#4edea3",
+                      "on-primary-fixed-variant": "#3f465c",
+                      "error": "#ffb4ab",
+                      "on-surface-variant": "#c6c6cd",
+                      "surface-container-highest": "#273647",
+                      "surface-bright": "#2c3a4c",
+                      "tertiary-container": "#001c10",
+                      "on-background": "#d4e4fa",
+                      "on-primary-fixed": "#131b2e",
+                      "surface-container": "#122131",
+                      "primary": "#bec6e0",
+                      "on-tertiary-container": "#009365",
+                      "on-error-container": "#ffdad6",
+                      "error-container": "#93000a",
+                      "primary-container": "#0f172a",
+                      "on-secondary-fixed": "#07006c",
+                      "secondary-fixed": "#e1e0ff",
+                      "outline-variant": "#45464d",
+                      "surface-variant": "#273647",
+                      "tertiary-fixed-dim": "#4edea3",
+                      "surface-container-high": "#1c2b3c",
+                      "background": "#051424",
+                      "surface-tint": "#bec6e0",
+                      "secondary": "#c0c1ff",
+                      "inverse-surface": "#d4e4fa",
+                      "outline": "#909097",
+                      "tertiary-fixed": "#6ffbbe",
+                      "secondary-fixed-dim": "#c0c1ff",
+                      "inverse-primary": "#565e74",
+                      "on-tertiary-fixed": "#002113",
+                      "on-surface": "#d4e4fa",
+                      "on-primary-container": "#798098",
+                      "on-secondary": "#1000a9",
+                      "on-tertiary": "#003824",
+                      "inverse-on-surface": "#233143",
+                      "on-primary": "#283044",
+                      "on-secondary-fixed-variant": "#2f2ebe"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-mobile": "16px",
+                      "gutter": "24px",
+                      "stack-sm": "8px",
+                      "container-max": "1280px",
+                      "margin-desktop": "40px",
+                      "unit": "8px",
+                      "stack-md": "16px",
+                      "stack-lg": "32px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": ["Inter"],
+                      "label-md": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "body-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "headline-xl": ["Inter"],
+                      "title-md": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background-color: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .ghost-border {
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .ghost-border:hover {
+            border-color: rgba(190, 198, 224, 0.5); /* Using primary color for subtle highlight */
+        }
+
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen overflow-hidden antialiased flex selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- Ambient Background Lighting -->
+<div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+<div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-secondary-container/20 blur-[120px]"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[30%] h-[30%] rounded-full bg-tertiary-container/20 blur-[100px]"></div>
+</div>
+<!-- SideNavBar (from JSON) -->
+<nav class="hidden md:flex flex-col z-40 fixed left-0 top-0 h-full w-64 bg-surface/80 backdrop-blur-2xl border-r border-white/10 shadow-md">
+<!-- Header -->
+<div class="p-6 border-b border-white/5 flex items-center gap-4">
+<div class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center shrink-0 border border-white/10">
+<span class="material-symbols-outlined text-primary" data-weight="fill" style="font-variation-settings: 'FILL' 1;">security</span>
+</div>
+<div>
+<h1 class="font-headline-lg text-headline-lg font-black text-primary tracking-tight">Fortress</h1>
+<p class="font-label-sm text-label-sm text-tertiary flex items-center gap-1 mt-1">
+<span class="w-2 h-2 rounded-full bg-tertiary shadow-[0_0_8px_rgba(78,222,163,0.6)]"></span>
+                    Shield Active
+                </p>
+</div>
+</div>
+<!-- Navigation Tabs -->
+<div class="flex-1 overflow-y-auto py-6 px-4 space-y-2">
+<!-- Active Tab: Vault -->
+<a class="flex items-center gap-4 px-6 py-4 rounded-lg text-primary font-bold border-l-4 border-primary bg-primary/10 transition-colors" href="#">
+<span class="material-symbols-outlined">enhanced_encryption</span>
+<span class="font-label-md text-label-md">Vault</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 rounded-lg text-on-surface-variant hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined">security</span>
+<span class="font-label-md text-label-md">Security Center</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 rounded-lg text-on-surface-variant hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined">share</span>
+<span class="font-label-md text-label-md">Sharing</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 rounded-lg text-on-surface-variant hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</div>
+<!-- CTA Footer -->
+<div class="p-6 mt-auto border-t border-white/5">
+<button class="w-full py-3 px-4 rounded-lg bg-surface-container-high border border-white/10 text-on-surface font-label-md text-label-md hover:bg-white/5 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">lock</span>
+                Lock Vault
+            </button>
+</div>
+</nav>
+<!-- TopAppBar (Mobile Only - from JSON rules) -->
+<header class="md:hidden sticky top-0 z-50 flex items-center justify-between w-full px-margin-mobile h-16 bg-surface/60 backdrop-blur-xl border-b border-white/10">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">Fortress</h1>
+<button class="p-2 text-primary hover:bg-white/5 transition-colors rounded-full focus:outline-none focus:ring-2 focus:ring-primary/50">
+<span class="material-symbols-outlined">lock_open</span>
+</button>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col md:ml-64 relative z-10 h-screen overflow-hidden">
+<!-- Search and Filter Bar -->
+<div class="px-margin-mobile md:px-gutter py-4 md:py-6 flex items-center justify-between gap-4 border-b border-white/5 shrink-0 z-20 bg-surface/40 backdrop-blur-sm">
+<div class="relative w-full max-w-md">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-low border border-white/10 rounded-lg py-3 pl-12 pr-4 text-on-surface font-body-md focus:border-secondary-container focus:ring-1 focus:ring-secondary-container focus:outline-none transition-all shadow-inner placeholder:text-on-surface-variant/50" placeholder="Search your vault..." type="text"/>
+</div>
+<button class="shrink-0 flex items-center gap-2 px-4 py-3 bg-secondary-container hover:bg-secondary-container/90 text-white rounded-lg font-label-md text-label-md transition-colors shadow-[0_0_15px_rgba(49,49,192,0.3)]">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span class="hidden sm:inline">New Item</span>
+</button>
+</div>
+<!-- Vault Layout: 3 Columns on Desktop (Categories, List, Details) -->
+<div class="flex-1 flex overflow-hidden">
+<!-- Column 1: Categories (Hidden on mobile) -->
+<aside class="hidden lg:flex flex-col w-64 border-r border-white/5 bg-surface-container-lowest/30 shrink-0 overflow-y-auto">
+<div class="p-4 space-y-1">
+<h2 class="px-4 py-2 text-label-sm font-label-sm text-on-surface-variant uppercase tracking-wider mb-2">Categories</h2>
+<button class="w-full flex items-center justify-between px-4 py-2.5 rounded-lg bg-white/5 text-primary font-label-md text-label-md transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px]">dataset</span>
+                            All Items
+                        </div>
+<span class="text-xs bg-surface-container-high px-2 py-0.5 rounded-full text-on-surface-variant group-hover:bg-white/10 transition-colors">142</span>
+</button>
+<button class="w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-on-surface-variant hover:bg-white/5 hover:text-on-surface font-label-md text-label-md transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px]">passkey</span>
+                            Passkeys
+                        </div>
+<span class="text-xs bg-surface-container-high px-2 py-0.5 rounded-full text-on-surface-variant/70 group-hover:bg-white/10 group-hover:text-on-surface-variant transition-colors">18</span>
+</button>
+<button class="w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-on-surface-variant hover:bg-white/5 hover:text-on-surface font-label-md text-label-md transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px]">login</span>
+                            Logins
+                        </div>
+<span class="text-xs bg-surface-container-high px-2 py-0.5 rounded-full text-on-surface-variant/70 group-hover:bg-white/10 group-hover:text-on-surface-variant transition-colors">94</span>
+</button>
+<button class="w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-on-surface-variant hover:bg-white/5 hover:text-on-surface font-label-md text-label-md transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px]">sticky_note_2</span>
+                            Secure Notes
+                        </div>
+<span class="text-xs bg-surface-container-high px-2 py-0.5 rounded-full text-on-surface-variant/70 group-hover:bg-white/10 group-hover:text-on-surface-variant transition-colors">12</span>
+</button>
+<button class="w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-on-surface-variant hover:bg-white/5 hover:text-on-surface font-label-md text-label-md transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px]">credit_card</span>
+                            Credit Cards
+                        </div>
+<span class="text-xs bg-surface-container-high px-2 py-0.5 rounded-full text-on-surface-variant/70 group-hover:bg-white/10 group-hover:text-on-surface-variant transition-colors">5</span>
+</button>
+<button class="w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-on-surface-variant hover:bg-white/5 hover:text-on-surface font-label-md text-label-md transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px]">description</span>
+                            Documents
+                        </div>
+<span class="text-xs bg-surface-container-high px-2 py-0.5 rounded-full text-on-surface-variant/70 group-hover:bg-white/10 group-hover:text-on-surface-variant transition-colors">13</span>
+</button>
+</div>
+</aside>
+<!-- Column 2: Item List -->
+<div class="flex-1 flex flex-col min-w-[320px] max-w-full lg:max-w-md xl:max-w-lg border-r border-white/5 bg-surface/50 overflow-hidden relative">
+<!-- Sort Header -->
+<div class="px-4 py-2 border-b border-white/5 flex items-center justify-between bg-surface-container-lowest/50 shrink-0">
+<span class="text-label-sm font-label-sm text-on-surface-variant">NAME</span>
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center">
+<span class="material-symbols-outlined text-[16px]">sort</span>
+</button>
+</div>
+<!-- List Items -->
+<div class="flex-1 overflow-y-auto p-2 space-y-1">
+<!-- Item: Apple -->
+<div class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 cursor-pointer transition-colors group">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center shrink-0 border border-white/5 group-hover:border-white/10">
+<img class="w-6 h-6 object-contain opacity-80" data-alt="Minimalist monochrome Apple logo on a dark background, centered in a slightly rounded square container, subtle volumetric lighting, high tech aesthetic, sleek and modern." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYN5Ubxw-SsJP1YarulL4-qWfpfxKw87BqbQpMWdrkbH0WPFvaKhjC-UsUyoHKFO_16GWCr1EapeR6cHlcbABW2jvLpoEiSFJCddwrkQCWqteXkvV4XVYVGCmUx2AWMb09GFOzIknjL8eKvl9LytjuHPRP7ABCXbJimdatg50DZYbOyGEdrRN3T9UU3L96lq6_RjTTnABGzRPy4p-5Ft6sBxlkLHat4PFS8sRfRo10l6_e4xVQW8vd"/>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-label-md text-label-md text-on-surface truncate">Apple ID</h3>
+<p class="font-body-md text-sm text-on-surface-variant truncate">j.doe@example.com</p>
+</div>
+<div class="shrink-0 flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/20 border border-secondary-container/30 text-secondary font-label-sm text-[10px] uppercase tracking-wide flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">passkey</span>
+                                Passkey
+                            </span>
+</div>
+</div>
+<!-- Item: GitHub (Selected) -->
+<div class="flex items-center gap-4 p-3 rounded-xl bg-primary-container/40 border border-primary/20 cursor-pointer transition-colors relative overflow-hidden">
+<!-- Active indicator bar -->
+<div class="absolute left-0 top-2 bottom-2 w-1 bg-primary rounded-r-full"></div>
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center shrink-0 border border-white/10">
+<img class="w-6 h-6 object-contain" data-alt="GitHub octocat logo in stark white against a deep dark blue background, sharp contrast, minimalist, centered, inside a subtle glassmorphism container." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBd2djFOD9meLLeWiMMS0zI5iGhLOvsr8kezUW-wvoJeSwcLBrJfXzqYwWpuEON1k2egLTK6RR5ex-wvo1W-EK2I3U1RPsZ9i6XtpFjZoFOi9OmSFgt1I1wiPuPNmKJwAnHH6gOaU6khHhh8PpGftuGl6wWqnbE0i31jGOFe5yo-SQCMogrIHG4GAyJlkaPLMmLrtliAAJ6aySobApFkJrw1cdjnCiTwCOeqXPh4yA9wKyZTPWmXbDq"/>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-label-md text-label-md text-primary font-semibold truncate">GitHub - Work</h3>
+<p class="font-body-md text-sm text-on-surface-variant truncate">johndoe_dev</p>
+</div>
+<div class="shrink-0">
+<button class="w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+</div>
+</div>
+<!-- Item: Google -->
+<div class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 cursor-pointer transition-colors group">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center shrink-0 border border-white/5 group-hover:border-white/10">
+<img class="w-6 h-6 object-contain opacity-80" data-alt="Stylized Google 'G' logo rendered in muted, technological colors against a dark background, subtle glow effect, centered, professional and secure aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRx19M7pJ9yFXAtcqbavUtRbqPqIQhNMgaWCNKkwNbBoh7P1k715bSdS2xkP9XDkKGIdu2eH-QetVRUjEBjNiclT7N6HDmpgbBdMikwnhuoQJEOcKn2-7uqY6YWNu_SPvj0PA8HUF3BTHuRYd5bTZCfFOHpzvddu5W0NADW3pPhIUpjW0pKik5SYg-MZO4PFCiM9xCXqmlbHznjo1idgrMAzHPBQnhn2u8SlTuL9ObUU0sJSCXhZC6"/>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-label-md text-label-md text-on-surface truncate">Google Account</h3>
+<p class="font-body-md text-sm text-on-surface-variant truncate">john.d@gmail.com</p>
+</div>
+<div class="shrink-0 flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-full bg-secondary-container/20 border border-secondary-container/30 text-secondary font-label-sm text-[10px] uppercase tracking-wide flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">passkey</span>
+                                Passkey
+                            </span>
+</div>
+</div>
+<!-- Item: AWS -->
+<div class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 cursor-pointer transition-colors group">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center shrink-0 border border-white/5 group-hover:border-white/10">
+<img class="w-6 h-6 object-contain opacity-80" data-alt="Amazon Web Services (AWS) logo in monochrome, dark theme, subtle edge lighting, high-trust enterprise security feel, centered." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXcxf2xeFqJ4qfkxp4DylDhZ3VwJOqAt_rMKbMxrJhT79NmOhxABFx9BjYfkfcovKLnzAH0Wl4qrXnW5t3Hr6EPM6EzF7zrxIvCf5gSCziLsJRmas8OfBrS0-6uoN005cGdRUXCGEadKAc_J03BDagq62bK6DjNAWZCvlwmgeMAXq_KA9ZK-ML3OCA4xro7TyZfgJ7vV-d569OOCtnWIZ_pNDFJ8AZhuhXLjyoUS3n08laEuAu40Jk"/>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-label-md text-label-md text-on-surface truncate">AWS Production</h3>
+<p class="font-body-md text-sm text-on-surface-variant truncate">admin_root</p>
+</div>
+</div>
+<!-- Item: Bank -->
+<div class="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 cursor-pointer transition-colors group">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center shrink-0 border border-white/5 group-hover:border-white/10">
+<span class="material-symbols-outlined text-on-surface-variant">account_balance</span>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="font-label-md text-label-md text-on-surface truncate">Chase Bank</h3>
+<p class="font-body-md text-sm text-on-surface-variant truncate">johndoe_finance</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 3: Item Details (GitHub) -->
+<div class="hidden md:flex flex-1 flex-col overflow-y-auto bg-surface-container-lowest relative">
+<!-- Detail Header -->
+<div class="p-8 pb-6 border-b border-white/5 flex items-start gap-6 relative">
+<!-- Edit Action (Absolute top right) -->
+<button class="absolute top-6 right-6 p-2 rounded-full hover:bg-white/5 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<div class="w-20 h-20 rounded-2xl bg-surface-container flex items-center justify-center shrink-0 border border-white/10 shadow-lg">
+<img class="w-12 h-12 object-contain" data-alt="Large GitHub octocat logo in stark white against a deep dark blue background, sharp contrast, minimalist, centered, high definition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIRt9luuGZG26VHT8ygiEAT-3vefOJeyTBsjsUThEFS1iRL2bz5Go012hCz5ilQyMDuTHF8cmzaKeW6htmOe1jPh77fuerI3r8HxyLGFrt8jfDYS8vodmypkvApaZbJ1AMmGsAce7DBZkZX4enIvwi_dX3ukoQQA-sKqTEADu_q5AEyzZTMtktRs_LQIB6uPCahh-HKqLXc_r-tceS3NvpCuRrv3lyfNNRHzYaGx85FLn4L4Ak6Y7V"/>
+</div>
+<div class="flex-1 pt-2">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">GitHub - Work</h2>
+<div class="flex items-center gap-3 mt-2">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">folder</span>
+                                Work
+                            </span>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">public</span>
+                                github.com
+                            </span>
+</div>
+</div>
+</div>
+<!-- Detail Body -->
+<div class="p-8 space-y-8 flex-1">
+<!-- Credentials Glass Module -->
+<div class="glass-panel rounded-2xl p-6 space-y-6">
+<!-- Username Field -->
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant flex items-center justify-between">
+                                USERNAME
+                                <button class="text-xs text-primary hover:underline">Copy</button>
+</label>
+<div class="flex items-center bg-surface-container-low rounded-lg p-3 border border-white/5 group hover:border-white/10 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant mr-3">person</span>
+<span class="font-body-md text-on-surface flex-1">johndoe_dev</span>
+</div>
+</div>
+<!-- Password Field -->
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant flex items-center justify-between">
+                                PASSWORD
+                                <div class="flex gap-4">
+<button class="text-xs text-primary hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">visibility</span> Show
+                                    </button>
+</div>
+</label>
+<div class="flex items-center bg-surface-container-low rounded-lg p-3 border border-white/5 group hover:border-white/10 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant mr-3">key</span>
+<div class="flex-1 flex items-center gap-1 pt-1">
+<!-- Obfuscated dots -->
+<div class="w-1.5 h-1.5 rounded-full bg-on-surface"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-on-surface"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-on-surface"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-on-surface"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-on-surface"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-on-surface"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-on-surface"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-on-surface"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-on-surface"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-on-surface"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-on-surface"></div>
+<div class="w-1.5 h-1.5 rounded-full bg-on-surface"></div>
+</div>
+</div>
+</div>
+<!-- Primary Action: Copy Password -->
+<button class="w-full py-4 rounded-xl bg-secondary-container hover:bg-secondary-container/90 text-white font-title-md text-title-md transition-colors shadow-[0_4px_20px_rgba(49,49,192,0.4)] flex items-center justify-center gap-3 group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">content_copy</span>
+                            Copy Password
+                        </button>
+</div>
+<!-- Meta Information Grid -->
+<div class="grid grid-cols-2 gap-4">
+<div class="glass-panel rounded-xl p-4 flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Last Modified</span>
+<span class="font-body-md text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary">check_circle</span>
+                                2 days ago
+                             </span>
+</div>
+<div class="glass-panel rounded-xl p-4 flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-on-surface-variant">Password Strength</span>
+<div class="flex items-center gap-2 mt-1">
+<div class="flex-1 h-1.5 rounded-full bg-white/10 overflow-hidden flex">
+<div class="h-full bg-tertiary w-full"></div>
+</div>
+<span class="font-label-sm text-label-sm text-tertiary">Strong</span>
+</div>
+</div>
+</div>
+<!-- Secondary Actions List -->
+<div class="glass-panel rounded-xl overflow-hidden divide-y divide-white/5">
+<button class="w-full p-4 flex items-center justify-between text-on-surface-variant hover:bg-white/5 hover:text-on-surface transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">history</span>
+<span class="font-label-md text-label-md">View History</span>
+</div>
+<span class="material-symbols-outlined text-[20px] opacity-50">chevron_right</span>
+</button>
+<button class="w-full p-4 flex items-center justify-between text-on-surface-variant hover:bg-white/5 hover:text-on-surface transition-colors group">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">share</span>
+<span class="font-label-md text-label-md">Sharing Options</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="font-label-sm text-label-sm bg-white/10 px-2 py-0.5 rounded text-on-surface-variant">Not Shared</span>
+<span class="material-symbols-outlined text-[20px] opacity-50">chevron_right</span>
+</div>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Fortress - Security Center</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container-lowest": "#010f1f",
+                      "surface-dim": "#051424",
+                      "surface": "#051424",
+                      "on-error": "#690005",
+                      "on-tertiary-fixed-variant": "#005236",
+                      "surface-container-low": "#0d1c2d",
+                      "primary-fixed-dim": "#bec6e0",
+                      "primary-fixed": "#dae2fd",
+                      "on-secondary-container": "#b0b2ff",
+                      "secondary-container": "#3131c0",
+                      "tertiary": "#4edea3",
+                      "on-primary-fixed-variant": "#3f465c",
+                      "error": "#ffb4ab",
+                      "on-surface-variant": "#c6c6cd",
+                      "surface-container-highest": "#273647",
+                      "surface-bright": "#2c3a4c",
+                      "tertiary-container": "#001c10",
+                      "on-background": "#d4e4fa",
+                      "on-primary-fixed": "#131b2e",
+                      "surface-container": "#122131",
+                      "primary": "#bec6e0",
+                      "on-tertiary-container": "#009365",
+                      "on-error-container": "#ffdad6",
+                      "error-container": "#93000a",
+                      "primary-container": "#0f172a",
+                      "on-secondary-fixed": "#07006c",
+                      "secondary-fixed": "#e1e0ff",
+                      "outline-variant": "#45464d",
+                      "surface-variant": "#273647",
+                      "tertiary-fixed-dim": "#4edea3",
+                      "surface-container-high": "#1c2b3c",
+                      "background": "#051424",
+                      "surface-tint": "#bec6e0",
+                      "secondary": "#c0c1ff",
+                      "inverse-surface": "#d4e4fa",
+                      "outline": "#909097",
+                      "tertiary-fixed": "#6ffbbe",
+                      "secondary-fixed-dim": "#c0c1ff",
+                      "inverse-primary": "#565e74",
+                      "on-tertiary-fixed": "#002113",
+                      "on-surface": "#d4e4fa",
+                      "on-primary-container": "#798098",
+                      "on-secondary": "#1000a9",
+                      "on-tertiary": "#003824",
+                      "inverse-on-surface": "#233143",
+                      "on-primary": "#283044",
+                      "on-secondary-fixed-variant": "#2f2ebe"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-mobile": "16px",
+                      "gutter": "24px",
+                      "stack-sm": "8px",
+                      "container-max": "1280px",
+                      "margin-desktop": "40px",
+                      "unit": "8px",
+                      "stack-md": "16px",
+                      "stack-lg": "32px"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": ["Inter"],
+                      "label-md": ["Inter"],
+                      "label-sm": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "body-md": ["Inter"],
+                      "body-lg": ["Inter"],
+                      "headline-xl": ["Inter"],
+                      "title-md": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+              }
+            }
+          }
+        }
+      </script>
+<style>
+          body {
+              background-color: theme('colors.surface');
+              color: theme('colors.on-surface');
+          }
+          .glass-panel {
+              background-color: rgba(15, 23, 42, 0.6);
+              backdrop-filter: blur(20px);
+              -webkit-backdrop-filter: blur(20px);
+              border: 1px solid rgba(255, 255, 255, 0.1);
+          }
+          .ghost-border {
+              border: 1px solid rgba(255, 255, 255, 0.1);
+          }
+      </style>
+</head>
+<body class="bg-surface text-on-surface antialiased selection:bg-primary selection:text-on-primary">
+<!-- TopAppBar for Mobile -->
+<header class="md:hidden sticky top-0 z-50 flex items-center justify-between w-full px-margin-mobile h-16 bg-surface/60 backdrop-blur-xl border-b border-white/10">
+<div class="flex items-center gap-3">
+<span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">Fortress</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-primary hover:bg-white/5 transition-colors p-2 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">lock_open</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden ghost-border">
+<img alt="User Biometric Profile" class="w-full h-full object-cover" data-alt="A macro shot of a glowing blue biometric fingerprint scanning interface on a dark glass surface. High contrast, neon electric indigo accents. Modern, high-trust corporate aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzmEWyOz3ExOeZP5NfTPOyKWA1_86D50bPCnE5L7E2-PXk-T7fpeJF3hsRjrK2k29F6KeME96iXs12vzLIaRbNhzdtiZsFV43VdjdtpVSQjgCVSfRfpDmcSWDHFvKSnMSkOyUFaQCI5QsXuOmo9CHbr5oHnZqGOa903IiUUhA8CZD-3upbDuwlWFYym9PDV4fxHb4VXFubMhDhQ2Pw7A2JYUXm8he-lm-ZdOyM7PC2BNVy3dtvHrjh"/>
+</div>
+</div>
+</header>
+<div class="flex h-screen overflow-hidden">
+<!-- SideNavBar for Desktop -->
+<nav class="hidden md:flex flex-col z-40 fixed left-0 top-0 h-full w-64 bg-surface/80 backdrop-blur-2xl border-r border-white/10 shadow-md">
+<div class="p-6 border-b border-white/10 flex flex-col gap-4">
+<div class="flex items-center gap-3">
+<span class="font-headline-lg text-headline-lg font-black text-primary">Fortress</span>
+</div>
+<div class="flex items-center gap-3 p-3 rounded-xl bg-surface-container-highest ghost-border">
+<div class="w-10 h-10 rounded-full overflow-hidden bg-surface-container-lowest flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">security</span>
+</div>
+<div>
+<div class="font-label-md text-label-md font-bold text-on-surface">Shield Active</div>
+<div class="font-label-sm text-label-sm text-tertiary">Protected</div>
+</div>
+</div>
+</div>
+<div class="flex-1 py-6 flex flex-col gap-2">
+<a class="text-on-surface-variant flex items-center gap-4 px-6 py-4 hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined">enhanced_encryption</span>
+<span class="font-label-md text-label-md">Vault</span>
+</a>
+<a class="text-primary font-bold border-l-4 border-primary bg-primary/10 flex items-center gap-4 px-6 py-4 opacity-80" href="#">
+<span class="material-symbols-outlined">security</span>
+<span class="font-label-md text-label-md">Security Center</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-4 px-6 py-4 hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined">share</span>
+<span class="font-label-md text-label-md">Sharing</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-4 px-6 py-4 hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</div>
+<div class="p-6 border-t border-white/10">
+<button class="w-full py-3 px-4 bg-primary-container text-on-primary-container font-label-md text-label-md rounded-lg ghost-border hover:bg-white/10 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">lock</span>
+                    Lock Vault
+                </button>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-1 overflow-y-auto w-full md:ml-64 pt-6 pb-24 md:py-10 px-margin-mobile md:px-margin-desktop">
+<div class="max-w-container-max mx-auto flex flex-col gap-stack-lg">
+<!-- Header -->
+<div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface mb-2">Security Center</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Monitor and strengthen your digital fortress.</p>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Health Checkup Summary (Spans full width on mobile, 8 cols desktop) -->
+<div class="md:col-span-8 glass-panel rounded-xl p-6 md:p-8 flex flex-col justify-between">
+<div class="flex items-start justify-between mb-8">
+<div>
+<h2 class="font-title-md text-title-md text-on-surface mb-1">Health Checkup</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Your overall security status.</p>
+</div>
+<div class="flex items-center gap-2 bg-tertiary/10 text-tertiary px-4 py-2 rounded-full">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-md text-label-md font-bold">Protected</span>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="bg-surface-container/50 rounded-lg p-4 border border-white/5">
+<div class="text-tertiary mb-2"><span class="material-symbols-outlined">password</span></div>
+<div class="font-headline-lg-mobile text-headline-lg-mobile">24</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Strong Passwords</div>
+</div>
+<div class="bg-surface-container/50 rounded-lg p-4 border border-white/5">
+<div class="text-error mb-2"><span class="material-symbols-outlined">warning</span></div>
+<div class="font-headline-lg-mobile text-headline-lg-mobile">2</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Vulnerabilities</div>
+</div>
+<div class="bg-surface-container/50 rounded-lg p-4 border border-white/5">
+<div class="text-primary mb-2"><span class="material-symbols-outlined">devices</span></div>
+<div class="font-headline-lg-mobile text-headline-lg-mobile">3</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Active Devices</div>
+</div>
+<div class="bg-surface-container/50 rounded-lg p-4 border border-white/5">
+<div class="text-primary mb-2"><span class="material-symbols-outlined">verified_user</span></div>
+<div class="font-headline-lg-mobile text-headline-lg-mobile">98%</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">Security Score</div>
+</div>
+</div>
+</div>
+<!-- Phishing Protection (4 cols desktop) -->
+<div class="md:col-span-4 glass-panel rounded-xl p-6 md:p-8 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4">
+<div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">phishing</span>
+</div>
+<!-- Toggle Switch -->
+<button class="w-12 h-6 rounded-full bg-primary relative transition-colors focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-surface">
+<span class="absolute right-1 top-1 w-4 h-4 rounded-full bg-surface-container-lowest transition-transform"></span>
+</button>
+</div>
+<h2 class="font-title-md text-title-md text-on-surface mb-2">Phishing Protection</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Real-time scanning of suspicious links and emails.</p>
+</div>
+<div class="bg-surface-container/50 rounded-lg p-4 border border-white/5 flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">shield</span>
+<span class="font-label-sm text-label-sm text-on-surface">Active &amp; Monitoring</span>
+</div>
+</div>
+<!-- Vulnerabilities Detected (6 cols desktop) -->
+<div class="md:col-span-6 glass-panel rounded-xl p-6 md:p-8">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-error">bug_report</span>
+<h2 class="font-title-md text-title-md text-on-surface">Vulnerabilities Detected</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">The following accounts were found in recent data breaches.</p>
+<div class="flex flex-col gap-4">
+<!-- Alert Item -->
+<div class="flex items-center justify-between bg-error/5 border border-error/20 p-4 rounded-lg">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">Netflix</span>
+<span class="font-label-sm text-label-sm text-error">Password Leaked - Dark Web</span>
+</div>
+<button class="px-4 py-2 bg-error text-on-error rounded-md font-label-sm text-label-sm hover:bg-error/90 transition-colors">Change Now</button>
+</div>
+<!-- Alert Item -->
+<div class="flex items-center justify-between bg-error/5 border border-error/20 p-4 rounded-lg">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md font-bold text-on-surface">Adobe</span>
+<span class="font-label-sm text-label-sm text-error">Password Reused - Medium Risk</span>
+</div>
+<button class="px-4 py-2 bg-error text-on-error rounded-md font-label-sm text-label-sm hover:bg-error/90 transition-colors">Change Now</button>
+</div>
+</div>
+</div>
+<!-- Identity Theft Monitoring (6 cols desktop) -->
+<div class="md:col-span-6 glass-panel rounded-xl p-6 md:p-8 relative overflow-hidden">
+<div class="relative z-10">
+<h2 class="font-title-md text-title-md text-on-surface mb-2">Identity Monitoring</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Alerts over the last 30 days.</p>
+</div>
+<!-- Graph Visualization Placeholder -->
+<div class="h-48 w-full mt-4 flex items-end justify-between gap-2 px-2">
+<!-- Bars -->
+<div class="w-full bg-primary/10 rounded-t-sm h-12 relative group"><div class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 font-label-sm text-label-sm bg-surface-container p-1 rounded">2</div></div>
+<div class="w-full bg-primary/10 rounded-t-sm h-8 relative group"><div class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 font-label-sm text-label-sm bg-surface-container p-1 rounded">1</div></div>
+<div class="w-full bg-primary/10 rounded-t-sm h-16 relative group"><div class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 font-label-sm text-label-sm bg-surface-container p-1 rounded">3</div></div>
+<div class="w-full bg-primary/30 rounded-t-sm h-32 relative group"><div class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 font-label-sm text-label-sm bg-surface-container p-1 rounded">8</div></div>
+<div class="w-full bg-primary/10 rounded-t-sm h-6 relative group"><div class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 font-label-sm text-label-sm bg-surface-container p-1 rounded">1</div></div>
+<div class="w-full bg-primary/10 rounded-t-sm h-4 relative group"><div class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 font-label-sm text-label-sm bg-surface-container p-1 rounded">0</div></div>
+<div class="w-full bg-primary/10 rounded-t-sm h-10 relative group"><div class="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 font-label-sm text-label-sm bg-surface-container p-1 rounded">2</div></div>
+</div>
+<div class="flex justify-between mt-2 font-label-sm text-label-sm text-on-surface-variant">
+<span>Week 1</span>
+<span>Week 4</span>
+</div>
+<!-- Atmospheric effect -->
+<div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-primary/5 to-transparent pointer-events-none"></div>
+</div>
+<!-- Gamified Checklist (Full width) -->
+<div class="md:col-span-12 glass-panel rounded-xl p-6 md:p-8">
+<h2 class="font-title-md text-title-md text-on-surface mb-2">Strengthen Your Identity</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">Complete these steps to maximize your security score.</p>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Checklist Item: Complete -->
+<div class="flex items-start gap-4 p-4 rounded-lg bg-surface-container/30 border border-white/5 opacity-70">
+<div class="mt-1">
+<span class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md font-bold text-on-surface line-through">Add Recovery Email</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">+10 Points</p>
+</div>
+</div>
+<!-- Checklist Item: Pending -->
+<div class="flex items-start gap-4 p-4 rounded-lg bg-surface-container border border-primary/20 hover:border-primary/50 transition-colors cursor-pointer group">
+<div class="mt-1">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">radio_button_unchecked</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md font-bold text-on-surface">Enable 2FA</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1 mb-3">Add a secondary verification method.</p>
+<span class="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full font-label-sm text-label-sm">+25 Points</span>
+</div>
+</div>
+<!-- Checklist Item: Pending -->
+<div class="flex items-start gap-4 p-4 rounded-lg bg-surface-container border border-white/10 hover:border-white/30 transition-colors cursor-pointer group">
+<div class="mt-1">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:scale-110 transition-transform">radio_button_unchecked</span>
+</div>
+<div>
+<h3 class="font-label-md text-label-md font-bold text-on-surface">Update Passkey</h3>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1 mb-3">Replace passwords with device biometrics.</p>
+<span class="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full font-label-sm text-label-sm">+50 Points</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

@@ -1,0 +1,5 @@
+#include "../../Flutter/Flutter-Release.xcconfig"
+#include "Warnings.xcconfig"
+MACOSX_DEPLOYMENT_TARGET = 26.0
+GETFOR_RUST_LIBRARY = $(PROJECT_DIR)/../build/rust/apple/$(PLATFORM_NAME)/$(CONFIGURATION)/libgetfor_core.a
+OTHER_LDFLAGS = $(inherited) -Wl,-force_load,$(GETFOR_RUST_LIBRARY) -Wl,-u,_getfor_core_abi_version -Wl,-u,_getfor_tls_identity_create -Wl,-u,_getfor_vault_create -Wl,-u,_getfor_vault_open -Wl,-u,_getfor_vault_open_with_key -Wl,-u,_getfor_vault_quick_unlock_key -Wl,-u,_getfor_vault_change_password -Wl,-u,_getfor_vault_lock -Wl,-u,_getfor_record_list -Wl,-u,_getfor_record_get -Wl,-u,_getfor_record_put -Wl,-u,_getfor_record_delete -Wl,-u,_getfor_sync_state -Wl,-u,_getfor_device_info -Wl,-u,_getfor_sync_proof -Wl,-u,_getfor_sync_export -Wl,-u,_getfor_sync_import -Wl,-u,_getfor_pairing_offer_create -Wl,-u,_getfor_pairing_accept -Wl,-u,_getfor_bytes_free -framework Security

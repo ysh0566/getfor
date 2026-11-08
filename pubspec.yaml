@@ -1,0 +1,22 @@
+name: getfor
+description: A local-first password manager for macOS and Android.
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.9.2
+
+dependencies:
+  crypto: ^3.0.6
+  ffi: ^2.1.4
+  flutter:
+    sdk: flutter
+  path_provider: ^2.1.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true

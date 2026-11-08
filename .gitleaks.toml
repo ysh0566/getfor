@@ -1,0 +1,40 @@
+title = "Getfor secret scanning"
+
+[extend]
+useDefault = true
+
+# These narrowly scoped matches are identifiers and published test data, not credential values.
+[[allowlists]]
+description = "Dart platform-channel field conversion"
+condition = "AND"
+paths = ['''(^|/)lib/credential_exchange\.dart$''']
+regexTarget = "match"
+regexes = ["passkey\\.userDisplayName,\\s*'privateKeyPkcs8'"]
+
+[[allowlists]]
+description = "Swift property reference"
+condition = "AND"
+paths = ['''(^|/)macos/Runner/CredentialExchangeController\.swift$''']
+regexTarget = "match"
+regexes = ['''passkey\.privateKeyPKCS8''']
+
+[[allowlists]]
+description = "Swift property assignment and type annotation"
+condition = "AND"
+paths = ['''(^|/)macos/Shared/PasskeySupport\.swift$''']
+regexTarget = "match"
+regexes = ['''self\.privateKeyPKCS8 = privateKeyPKCS8''', '''privateKey: P256\.Signing\.PrivateKey''']
+
+[[allowlists]]
+description = "Public Keychain service name"
+condition = "AND"
+paths = ['''(^|/)macos/Shared/PasskeySupport\.swift$''']
+regexTarget = "match"
+regexes = ['''pendingPasskeyService = "com\.ysh0566\.getfor\.pending-passkeys"''']
+
+[[allowlists]]
+description = "Public password and TOTP test vectors"
+condition = "AND"
+paths = ['''(^|/)native/getfor_core/src/vault\.rs$''']
+regexTarget = "secret"
+regexes = ['''^JBSWY3DPEHPK3PXP$''', '''^unique-secret-123$''']

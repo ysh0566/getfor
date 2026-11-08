@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Fortress - Settings &amp; Digital Legacy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-lowest": "#010f1f",
+                    "surface-dim": "#051424",
+                    "surface": "#051424",
+                    "on-error": "#690005",
+                    "on-tertiary-fixed-variant": "#005236",
+                    "surface-container-low": "#0d1c2d",
+                    "primary-fixed-dim": "#bec6e0",
+                    "primary-fixed": "#dae2fd",
+                    "on-secondary-container": "#b0b2ff",
+                    "secondary-container": "#3131c0",
+                    "tertiary": "#4edea3",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "error": "#ffb4ab",
+                    "on-surface-variant": "#c6c6cd",
+                    "surface-container-highest": "#273647",
+                    "surface-bright": "#2c3a4c",
+                    "tertiary-container": "#001c10",
+                    "on-background": "#d4e4fa",
+                    "on-primary-fixed": "#131b2e",
+                    "surface-container": "#122131",
+                    "primary": "#bec6e0",
+                    "on-tertiary-container": "#009365",
+                    "on-error-container": "#ffdad6",
+                    "error-container": "#93000a",
+                    "primary-container": "#0f172a",
+                    "on-secondary-fixed": "#07006c",
+                    "secondary-fixed": "#e1e0ff",
+                    "outline-variant": "#45464d",
+                    "surface-variant": "#273647",
+                    "tertiary-fixed-dim": "#4edea3",
+                    "surface-container-high": "#1c2b3c",
+                    "background": "#051424",
+                    "surface-tint": "#bec6e0",
+                    "secondary": "#c0c1ff",
+                    "inverse-surface": "#d4e4fa",
+                    "outline": "#909097",
+                    "tertiary-fixed": "#6ffbbe",
+                    "secondary-fixed-dim": "#c0c1ff",
+                    "inverse-primary": "#565e74",
+                    "on-tertiary-fixed": "#002113",
+                    "on-surface": "#d4e4fa",
+                    "on-primary-container": "#798098",
+                    "on-secondary": "#1000a9",
+                    "on-tertiary": "#003824",
+                    "inverse-on-surface": "#233143",
+                    "on-primary": "#283044",
+                    "on-secondary-fixed-variant": "#2f2ebe"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "margin-mobile": "16px",
+                    "gutter": "24px",
+                    "stack-sm": "8px",
+                    "container-max": "1280px",
+                    "margin-desktop": "40px",
+                    "unit": "8px",
+                    "stack-md": "16px",
+                    "stack-lg": "32px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Inter"],
+                    "label-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "title-md": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "500"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        body {
+            background-color: #051424;
+            color: #d4e4fa;
+        }
+        .glass-module {
+            background-color: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #3131c0;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #3131c0;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md antialiased min-h-screen flex">
+<!-- SideNavBar (Desktop) -->
+<aside class="hidden md:flex flex-col z-40 fixed left-0 top-0 h-full w-64 bg-surface/80 backdrop-blur-2xl border-r border-white/10 shadow-md">
+<div class="px-6 py-8">
+<h1 class="font-headline-lg text-headline-lg font-black text-primary mb-2">Fortress</h1>
+<div class="flex items-center gap-2">
+<span aria-label="Security Shield Icon" class="material-symbols-outlined text-tertiary" style="font-variation-settings: 'FILL' 1;">security</span>
+<span class="font-label-sm text-label-sm text-tertiary">Shield Active</span>
+</div>
+</div>
+<nav class="flex-1 mt-8 space-y-2">
+<a class="text-on-surface-variant flex items-center gap-4 px-6 py-4 hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined">enhanced_encryption</span>
+<span class="font-label-md text-label-md">Vault</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-4 px-6 py-4 hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined">security</span>
+<span class="font-label-md text-label-md">Security Center</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-4 px-6 py-4 hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined">share</span>
+<span class="font-label-md text-label-md">Sharing</span>
+</a>
+<a class="text-primary font-bold border-l-4 border-primary bg-primary/10 flex items-center gap-4 px-6 py-4 hover:bg-white/5 transition-all opacity-80" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="font-label-md text-label-md">Settings</span>
+</a>
+</nav>
+<div class="p-6">
+<button class="w-full bg-secondary-container hover:bg-secondary-fixed text-on-secondary-container hover:text-on-secondary-fixed py-3 rounded-lg font-label-md text-label-md transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">lock</span>
+                Lock Vault
+            </button>
+</div>
+</aside>
+<!-- TopAppBar (Mobile) -->
+<header class="md:hidden sticky top-0 z-50 flex items-center justify-between w-full px-margin-mobile h-16 bg-surface/60 backdrop-blur-xl border-b border-white/10 no-shadow hover:bg-white/5 transition-colors duration-100 transform active:scale-95">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">Fortress</h1>
+<button class="text-primary p-2 rounded-full hover:bg-white/10 transition">
+<span class="material-symbols-outlined">lock_open</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full md:pl-64 pt-4 md:pt-12 px-margin-mobile md:px-margin-desktop pb-24 max-w-container-max mx-auto">
+<header class="mb-stack-lg">
+<h2 class="font-headline-xl text-headline-xl text-on-surface mb-2">Settings &amp; Digital Legacy</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Manage your account security, recovery options, and legacy access.</p>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Account Security Section -->
+<section class="lg:col-span-8 space-y-stack-md">
+<div class="glass-module rounded-xl p-6 lg:p-8">
+<h3 class="font-title-md text-title-md text-primary mb-6 flex items-center gap-3 border-b border-white/10 pb-4">
+<span class="material-symbols-outlined">shield_locked</span>
+                        Account Security
+                    </h3>
+<!-- Master Password -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center py-4 border-b border-white/5 gap-4">
+<div>
+<h4 class="font-label-md text-label-md font-bold mb-1">Master Password</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Last changed 45 days ago</p>
+</div>
+<button class="px-4 py-2 bg-transparent border border-outline-variant text-on-surface rounded-lg hover:bg-white/5 transition-colors font-label-md text-label-md whitespace-nowrap">
+                            Change Password
+                        </button>
+</div>
+<!-- 2FA Setup -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center py-4 border-b border-white/5 gap-4">
+<div>
+<h4 class="font-label-md text-label-md font-bold mb-1">Two-Factor Authentication (2FA)</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Authenticator app configured</p>
+</div>
+<div class="flex items-center gap-3">
+<span class="px-3 py-1 rounded-full bg-tertiary/10 text-tertiary font-label-sm text-label-sm flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span> Active
+                            </span>
+<button class="px-4 py-2 bg-transparent border border-outline-variant text-on-surface rounded-lg hover:bg-white/5 transition-colors font-label-md text-label-md">
+                                Manage
+                            </button>
+</div>
+</div>
+<!-- Recovery Kit -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center py-4 gap-4">
+<div>
+<h4 class="font-label-md text-label-md font-bold mb-1">Recovery Kit</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Download your emergency recovery codes.</p>
+</div>
+<button class="px-4 py-2 bg-secondary-container text-on-secondary-container rounded-lg hover:bg-secondary-fixed transition-colors font-label-md text-label-md flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">download</span>
+                            Download Kit
+                        </button>
+</div>
+</div>
+<!-- Digital Legacy Section -->
+<div class="glass-module rounded-xl p-6 lg:p-8">
+<h3 class="font-title-md text-title-md text-primary mb-6 flex items-center gap-3 border-b border-white/10 pb-4">
+<span class="material-symbols-outlined">family_history</span>
+                        Digital Legacy
+                    </h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6">
+                        In the event of an emergency, securely grant access to designated beneficiaries after a specified waiting period.
+                    </p>
+<!-- Beneficiary List -->
+<div class="space-y-4 mb-6">
+<div class="flex items-center justify-between p-4 bg-surface-container-high rounded-lg border border-white/5">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-primary font-bold">
+                                    ES
+                                </div>
+<div>
+<h4 class="font-label-md text-label-md font-bold">Emma Smith</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Access granted after 7 days</p>
+</div>
+</div>
+<span class="px-3 py-1 rounded-full bg-surface-variant text-on-surface-variant font-label-sm text-label-sm border border-outline-variant">
+                                Pending Verification
+                            </span>
+</div>
+</div>
+<button class="w-full sm:w-auto px-6 py-3 bg-transparent border border-primary text-primary rounded-lg hover:bg-primary/10 transition-colors font-label-md text-label-md flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">person_add</span>
+                        Add Beneficiary
+                    </button>
+</div>
+</section>
+<!-- Side Panel (Advanced & Extras) -->
+<aside class="lg:col-span-4 space-y-stack-md">
+<!-- Advanced Settings -->
+<div class="glass-module rounded-xl p-6">
+<h3 class="font-title-md text-title-md text-primary mb-4 flex items-center gap-3 border-b border-white/10 pb-4">
+<span class="material-symbols-outlined">tune</span>
+                        Advanced
+                    </h3>
+<div class="space-y-6">
+<!-- Encryption Toggle -->
+<div class="flex items-center justify-between">
+<div>
+<h4 class="font-label-md text-label-md font-bold">Argon2 KDF</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-xs mt-1">Maximum encryption level</p>
+</div>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 border-surface appearance-none cursor-pointer" id="toggle-argon" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-surface-variant cursor-pointer" for="toggle-argon"></label>
+</div>
+</div>
+<!-- Hardware Key -->
+<div class="flex items-center justify-between">
+<div>
+<h4 class="font-label-md text-label-md font-bold">Hardware Key Support</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-xs mt-1">Require physical YubiKey</p>
+</div>
+<div class="relative inline-block w-10 mr-2 align-middle select-none transition duration-200 ease-in">
+<input class="toggle-checkbox absolute block w-5 h-5 rounded-full bg-white border-4 border-surface appearance-none cursor-pointer" id="toggle-hw" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-5 rounded-full bg-surface-variant cursor-pointer" for="toggle-hw"></label>
+</div>
+</div>
+</div>
+</div>
+<!-- Info Card -->
+<div class="glass-module rounded-xl p-6 bg-primary-container/30 border-primary/20">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-primary text-2xl">info</span>
+<div>
+<h4 class="font-label-md text-label-md font-bold text-primary mb-2">Zero-Knowledge Architecture</h4>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">
+                                Fortress cannot reset your Master Password. If you lose it and your Recovery Kit, your data will be permanently inaccessible.
+                            </p>
+</div>
+</div>
+</div>
+</aside>
+</div>
+</main>
+</body></html>

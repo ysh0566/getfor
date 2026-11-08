@@ -1,0 +1,19 @@
+[package]
+name = "getfor_core"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+crate-type = ["cdylib", "staticlib"]
+
+[dependencies]
+argon2 = "0.5.3"
+chacha20poly1305 = { version = "0.11.0", features = ["zeroize"] }
+base64 = "0.22.1"
+getrandom = "0.4.3"
+rusqlite = { version = "=0.39.0", features = ["bundled"] }
+rcgen = "0.13.2"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tempfile = "3.20.0"
+zeroize = "1.8.2"
